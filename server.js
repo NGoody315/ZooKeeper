@@ -9,8 +9,8 @@ const app = express();
 
 //parse incoming string or array data
 app.use(express.urlencoded({ extended: true}));
-
 app.use(express.json());
+app.use(express.static('public'));
 
 function filterByQuery(query, animalsArray) {
     let personalityTraitsArray = [];
@@ -103,6 +103,10 @@ app.post('/api/animals', (req, res) => {
     }
 });
 
+//Responding with an HTML page
+app.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
